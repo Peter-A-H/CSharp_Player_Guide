@@ -3,7 +3,12 @@
     string gem = "Normal";
     Console.ForegroundColor = ConsoleColor.White;
 
-    if (i % 3 == 0)
+    if (i % 3 == 0 && i % 5 == 0)
+    {
+        gem = "Electric Fire";
+        Console.ForegroundColor = ConsoleColor.Blue;
+    }
+    else if (i % 3 == 0)
     {
         gem = "Fire";
         Console.ForegroundColor = ConsoleColor.Red;
