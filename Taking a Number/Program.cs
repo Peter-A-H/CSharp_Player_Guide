@@ -1,11 +1,28 @@
-﻿int[,] matrix = new int[3, 2] { { 1, 2 }, { 3, 4 }, { 5, 6 } };
-
-for (int row = 0; row < matrix.GetLength(0); row++)
+﻿int AskForNumber(string text)
 {
-    for (int column = 0; column < matrix.GetLength(1); column++)
+    Console.WriteLine(text);
+    int response = Convert.ToInt32(Console.ReadLine());
+    return response;
+}
+
+int result = AskForNumber("What is the air speed velocity of an unladen swallow? ");
+Console.WriteLine(result);
+
+int AskForNumberInRange(int min, int max)
+{
+    Console.WriteLine($"Enter a number between {min} and {max}");
+    int response = Convert.ToInt32(Console.ReadLine());
+
+    if (response >= min && response <= max)
     {
-        Console.Write(matrix[row, column] + " ");
+        return response;
+    }
+    else
+    {
+        AskForNumberInRange(min, max);
     }
 
-    Console.WriteLine();
+    return 1;
 }
+
+AskForNumberInRange(1, 100);
