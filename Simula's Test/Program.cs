@@ -2,15 +2,7 @@
 
 while (true)
 {
-    string chestStatus = chest switch
-    {
-        Chest.Open => "open",
-        Chest.Closed => "unlocked",
-        Chest.Locked => "locked",
-        _ => ""
-    };
-
-    Console.Write($"The chest is {chestStatus}. What do you want to do? ");
+    Console.Write($"The chest is {ChestStatus()}. What do you want to do? ");
     string? action = Console.ReadLine();
 
     switch (action)
@@ -35,6 +27,17 @@ while (true)
             Console.WriteLine("Invalid action.");
             break;
     }
+}
+
+string ChestStatus()
+{
+    return chest switch
+    {
+        Chest.Open => "open",
+        Chest.Closed => "unlocked",
+        Chest.Locked => "locked",
+        _ => ""
+    };
 }
 
 enum Chest { Open, Closed, Locked };
