@@ -5,6 +5,31 @@ int cityHealth = 15;
 int cityMaxHealth = 15;
 int round = 1;
 
+Console.Write("Player 1, how far away from the city do you want to station the Manticore? ");
+manticoreDistance = Convert.ToInt32(Console.ReadLine());
+
+Console.Clear();
+
+Console.WriteLine("Player 2, it is your turn.");
+
+while (cityHealth > 0 && manticoreHealth > 0)
+{
+    Console.WriteLine("----------------------------------------------------------------------------");
+    DisplayStatus();
+    DisplayDamage();
+
+    int range = PromptCannonRange();
+    string accuracy = CannonAccuracy(range);
+
+    DisplayHitStatus(accuracy);
+
+    if (accuracy == "DIRECT HIT!") manticoreHealth -= CannonDamage();
+    ++round;
+    --cityHealth;
+
+    CheckForWinner();
+}
+
 void DisplayStatus()
 {
     Console.WriteLine($"STATUS: Round: {round} City: {cityHealth}/{cityMaxHealth} Manticore: {manticoreHealth}/{manticoreMaxHealth}");
@@ -60,29 +85,4 @@ void CheckForWinner()
 {
     if (cityHealth <= 0) Console.WriteLine("The city has been destroyed!");
     else if (manticoreHealth <= 0) Console.WriteLine("The manticore has been destroyed!");
-}
-
-Console.Write("Player 1, how far away from the city do you want to station the Manticore? ");
-manticoreDistance = Convert.ToInt32(Console.ReadLine());
-
-Console.Clear();
-
-Console.WriteLine("Player 2, it is your turn.");
-
-while (cityHealth > 0 && manticoreHealth > 0)
-{
-    Console.WriteLine("----------------------------------------------------------------------------");
-    DisplayStatus();
-    DisplayDamage();
-
-    int range = PromptCannonRange();
-    string accuracy = CannonAccuracy(range);
-
-    DisplayHitStatus(accuracy);
-
-    if (accuracy == "DIRECT HIT!") manticoreHealth -= CannonDamage();
-    ++round;
-    --cityHealth;
-
-    CheckForWinner();
 }
