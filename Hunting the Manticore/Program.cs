@@ -5,8 +5,17 @@ int cityHealth = 15;
 int cityMaxHealth = 15;
 int round = 1;
 
-Console.Write("Player 1, how far away from the city do you want to station the Manticore? ");
-manticoreDistance = Convert.ToInt32(Console.ReadLine());
+do
+{
+    Console.Write("Player 1, how far away from the city do you want to station the Manticore? (0-100) ");
+    manticoreDistance = Convert.ToInt32(Console.ReadLine());
+
+    if (manticoreDistance < 0 || manticoreDistance > 100)
+    {
+        Console.Clear();
+        Console.WriteLine("Please enter a number between 0 and 100.");
+    }
+} while (manticoreDistance < 0 || manticoreDistance > 100);
 
 Console.Clear();
 
