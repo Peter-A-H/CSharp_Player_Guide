@@ -18,7 +18,6 @@ do
 } while (manticoreDistance < 0 || manticoreDistance > 100);
 
 Console.Clear();
-
 Console.WriteLine("Player 2, it is your turn.");
 
 while (cityHealth > 0 && manticoreHealth > 0)
