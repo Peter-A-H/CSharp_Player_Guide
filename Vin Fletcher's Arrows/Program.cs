@@ -1,5 +1,5 @@
 ﻿Console.WriteLine("Make a new arrow");
-Console.Write("Enter an arrowhead type (1: steel, 2: wood, 3: obsidian. ");
+Console.Write("Enter an arrowhead type (1: steel, 2: wood, 3: obsidian.): ");
 string? arrowheadResponse = Console.ReadLine();
 Arrowhead arrowhead = arrowheadResponse switch
 {
@@ -9,7 +9,7 @@ Arrowhead arrowhead = arrowheadResponse switch
     _ => Arrowhead.Wood
 };
 
-Console.Write("Enter a fletching type (1: plastic, 2: turkey feathers, 3: goose feathers. ");
+Console.Write("Enter a fletching type (1: plastic, 2: turkey feathers, 3: goose feathers.): ");
 string? fletchingResponse = Console.ReadLine();
 Fletching fletching = fletchingResponse switch
 {
@@ -19,10 +19,12 @@ Fletching fletching = fletchingResponse switch
     _ => Fletching.Plastic
 };
 
-Console.Write("Enter an arrow length in cm between 60 and 100. ");
+Console.Write("Enter an arrow length in cm between 60 and 100.): ");
 int length = Convert.ToInt32(Console.ReadLine());
 
 Arrow arrow = new(arrowhead, fletching, length);
+
+Console.WriteLine($"Cost for an arrow with a {arrowhead} arrowhead, {fletching} fletching and a length of {length}cm is {arrow.GetCost()} gold.");
 
 public class Arrow
 {
@@ -37,9 +39,27 @@ public class Arrow
         _length = length;
     }
 
-    float GetCost()
+    public float GetCost()
     {
+        int arrowheadCost = _arrowhead switch
+        {
+            Arrowhead.Wood => 3,
+            Arrowhead.Obsidian => 5,
+            Arrowhead.Steel => 10,
+            _ => 3
+        };
 
+        int fletchingCost = _fletching switch
+        {
+            Fletching.GooseFeathers => 3,
+            Fletching.TurkeyFeathers => 5,
+            Fletching.Plastic => 10,
+            _ => 3
+        };
+
+        float lengthCost = _length * 0.05f;
+
+        return arrowheadCost + fletchingCost + lengthCost;
     }
 }
 
