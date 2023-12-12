@@ -26,18 +26,12 @@ Arrow arrow = new(arrowhead, fletching, length);
 
 Console.WriteLine($"Cost for an arrow with a {arrowhead} arrowhead, {fletching} fletching and a length of {length}cm is {arrow.GetCost()} gold.");
 
-public class Arrow
+// Primary constructor syntax in C#12, removes the need to use a constructor with the same name as the class.
+public class Arrow(Arrowhead arrowhead, Fletching fletching, int length)
 {
-    Arrowhead _arrowhead;
-    Fletching _fletching;
-    int _length;
-
-    public Arrow(Arrowhead arrowhead, Fletching fletching, int length)
-    {
-        _arrowhead = arrowhead;
-        _fletching = fletching;
-        _length = length;
-    }
+    readonly Arrowhead _arrowhead = arrowhead;
+    readonly Fletching _fletching = fletching;
+    readonly int _length = length;
 
     public float GetCost()
     {
