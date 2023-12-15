@@ -29,9 +29,9 @@ Console.WriteLine($"Cost for an arrow with a {arrowhead} arrowhead, {fletching} 
 // Primary constructor syntax in C#12, removes the need to use a constructor with the same name as the class.
 internal class Arrow(Arrowhead arrowhead, Fletching fletching, int length)
 {
-    private Arrowhead _arrowhead = arrowhead;
-    private Fletching _fletching = fletching;
-    private int _length = length;
+    private readonly Arrowhead _arrowhead = arrowhead;
+    private readonly Fletching _fletching = fletching;
+    private readonly int _length = length;
 
     public float GetCost()
     {
