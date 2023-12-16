@@ -1,13 +1,13 @@
 ﻿Console.WriteLine("Make a new arrow");
 
 Console.Write("Do you want to make a custom arrow, or choose a pre-defined one? (1: Custom, 2: Pre-defined): ");
-string? arrowChoice = Console.ReadLine();
+string? arrowChoice = Console.ReadLine() ?? "2";
 Console.Clear();
 
 if (arrowChoice == "2")
 {
     Console.Write("Please choose between 3 arrows (1: Beginner, 2: Marksman, 3: Elite): ");
-    string? predefinedArrowChoice = Console.ReadLine();
+    string? predefinedArrowChoice = Console.ReadLine() ?? "1";
     Arrow predefinedArrow = predefinedArrowChoice switch
     {
         "1" => Arrow.CreateBeginnerArrow(),
