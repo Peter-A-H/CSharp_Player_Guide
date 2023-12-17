@@ -1,12 +1,13 @@
 ﻿var game = new TicTacToeGame();
+var board = new Grid();
 var player1 = new Player('X');
 var player2 = new Player('O');
 
 game.Run();
 
+board.Draw();
 while (game.InPlay)
 {
-    Grid.Draw();
 }
 
 public class Player(char crossOrNaught)
@@ -14,18 +15,26 @@ public class Player(char crossOrNaught)
     public char CrossOrNaught { get; private set; } = crossOrNaught;
 }
 
-static class Grid
+public class Grid
 {
-    static public void Draw()
+    public char[,] Squares { get; private set; } = new char[3, 3]
     {
-        Console.WriteLine($" X | O | X ");
+        { 'X', 'O', 'X' },
+        { 'O', 'X', 'O' },
+        { 'O', 'O', 'O' }
+    };
+
+    public void Draw()
+    {
+        Console.WriteLine($" {Squares[0, 0]} | {Squares[0, 1]} | {Squares[0, 2]} ");
         Console.WriteLine($"---+---+---");
-        Console.WriteLine($" X | O | O ");
+        Console.WriteLine($" {Squares[1, 0]} | {Squares[1, 1]} | {Squares[1, 2]} ");
         Console.WriteLine($"---+---+---");
-        Console.WriteLine($" X | 0 | X ");
+        Console.WriteLine($" {Squares[2, 0]} | {Squares[2, 1]} | {Squares[2, 2]} ");
     }
 }
 
+// Store a 3x3 matrix for the win conditions
 public class TicTacToeGame
 {
     public bool InPlay { get; private set; }
