@@ -17,6 +17,7 @@ while (game.InPlay)
     board.SetSquare(chosenSquare, currentPlayer);
     if (TicTacToeGame.CheckForWinner(currentPlayer))
     {
+        board.Draw();
         Console.WriteLine($"{currentPlayer.CrossOrNaught} has won the game!");
         game.ToggleGame();
     };
@@ -33,9 +34,9 @@ public class Grid
 {
     public static char[,] Squares { get; private set; } = new char[3, 3]
     {
-        { '1', '2', '3' },
-        { '4', '5', '6' },
-        { '7', '8', '9' }
+        { ' ', ' ', ' ' },
+        { ' ', ' ', ' ' },
+        { ' ', ' ', ' ' }
     };
     public char[,] WinConditions { get; private set; } = new char[8, 3]
     {
@@ -106,9 +107,12 @@ public class Grid
 
 public class TicTacToeGame
 {
-    public bool InPlay { get; private set; } = true;
+    public bool InPlay { get; private set; } = false;
 
-    public bool ToggleGame() => !InPlay;
+    public void ToggleGame()
+    {
+        InPlay = !InPlay;
+    }
 
     public static bool CheckForWinner(Player currentPlayer)
     {
@@ -120,8 +124,19 @@ public class TicTacToeGame
         {
             for (int column = 0; column < squares.GetLength(1); column++)
             {
-                if (squares[row, column] == currentPlayer.CrossOrNaught) count++;
-                if (count == 3) winner = true;
+                if (squares[row, column] == currentPlayer.CrossOrNaught)
+                {
+                    count++;
+                }
+                else
+                {
+                    count--;
+                }
+
+                if (count == 3)
+                {
+                    winner = true;
+                }
             }
         }
 
