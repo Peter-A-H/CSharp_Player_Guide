@@ -1,10 +1,10 @@
-﻿var game = new TicTacToeGame();
-var board = new Grid();
-var player1 = new Player('X');
-var player2 = new Player('O');
-var currentPlayer = player1;
+﻿TicTacToeGame game = new();
+Grid board = new();
+Player player1 = new('X');
+Player player2 = new('O');
+Player currentPlayer = player1;
 
-game.Run();
+game.ToggleGame();
 
 while (game.InPlay)
 {
@@ -15,9 +15,13 @@ while (game.InPlay)
     int chosenSquare = Convert.ToInt32(Console.ReadLine());
 
     board.SetSquare(chosenSquare, currentPlayer);
-    currentPlayer = (currentPlayer == player1) ? player2 : player1;
+    if (TicTacToeGame.CheckForWinner(currentPlayer))
+    {
+        Console.WriteLine($"{currentPlayer.CrossOrNaught} has won the game!");
+        game.ToggleGame();
+    };
 
-    Console.Clear();
+    currentPlayer = (currentPlayer == player1) ? player2 : player1;
 }
 
 public class Player(char crossOrNaught)
@@ -60,30 +64,39 @@ public class Grid
         {
             case 1:
                 Squares[0, 0] = currentPlayer.CrossOrNaught;
+                WinConditions[0, 0] = currentPlayer.CrossOrNaught;
                 break;
             case 2:
                 Squares[0, 1] = currentPlayer.CrossOrNaught;
+                WinConditions[0, 1] = currentPlayer.CrossOrNaught;
                 break;
             case 3:
                 Squares[0, 2] = currentPlayer.CrossOrNaught;
+                WinConditions[0, 2] = currentPlayer.CrossOrNaught;
                 break;
             case 4:
                 Squares[1, 0] = currentPlayer.CrossOrNaught;
+                WinConditions[1, 0] = currentPlayer.CrossOrNaught;
                 break;
             case 5:
                 Squares[1, 1] = currentPlayer.CrossOrNaught;
+                WinConditions[1, 1] = currentPlayer.CrossOrNaught;
                 break;
             case 6:
                 Squares[1, 2] = currentPlayer.CrossOrNaught;
+                WinConditions[1, 2] = currentPlayer.CrossOrNaught;
                 break;
             case 7:
                 Squares[2, 0] = currentPlayer.CrossOrNaught;
+                WinConditions[2, 0] = currentPlayer.CrossOrNaught;
                 break;
             case 8:
                 Squares[2, 1] = currentPlayer.CrossOrNaught;
+                WinConditions[2, 1] = currentPlayer.CrossOrNaught;
                 break;
             case 9:
                 Squares[2, 2] = currentPlayer.CrossOrNaught;
+                WinConditions[2, 2] = currentPlayer.CrossOrNaught;
                 break;
             default:
                 throw new IndexOutOfRangeException("1-9 required.");
@@ -93,20 +106,25 @@ public class Grid
 
 public class TicTacToeGame
 {
-    public bool InPlay { get; private set; }
+    public bool InPlay { get; private set; } = true;
 
-    public void Run()
+    public bool ToggleGame() => !InPlay;
+
+    public static bool CheckForWinner(Player currentPlayer)
     {
-        InPlay = true;
-    }
+        char[,] squares = Grid.Squares;
+        bool winner = false;
+        int count = 0;
 
-    public void End()
-    {
-        InPlay = false;
-    }
+        for (int row = 0; row < squares.GetLength(0); row++)
+        {
+            for (int column = 0; column < squares.GetLength(1); column++)
+            {
+                if (squares[row, column] == currentPlayer.CrossOrNaught) count++;
+                if (count == 3) winner = true;
+            }
+        }
 
-    public void CheckForWinner()
-    {
-
+        return winner;
     }
 }
