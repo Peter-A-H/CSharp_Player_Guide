@@ -8,7 +8,7 @@ game.ToggleGame();
 
 while (game.InPlay)
 {
-    Console.WriteLine($"It is {currentPlayer.CrossOrNaught}'s turn.");
+    Console.WriteLine($"It is {currentPlayer.CrossOrNaught}'s turn.\n");
     board.Draw();
 
     Console.Write("What square do you want to play in? ");
@@ -18,7 +18,7 @@ while (game.InPlay)
     if (TicTacToeGame.CheckForWinner(currentPlayer))
     {
         board.Draw();
-        Console.WriteLine($"{currentPlayer.CrossOrNaught} has won the game!");
+        Console.WriteLine($"\n{currentPlayer.CrossOrNaught} has won the game!");
         game.ToggleGame();
     };
 
@@ -38,7 +38,8 @@ public class Grid
         { ' ', ' ', ' ' },
         { ' ', ' ', ' ' }
     };
-    public char[,] WinConditions { get; private set; } = new char[8, 3]
+
+    public static char[,] WinConditions { get; private set; } = new char[8, 3]
     {
         { Squares[0, 0], Squares[0, 1], Squares[0, 2] },
         { Squares[1, 0], Squares[1, 1], Squares[1, 2] },
@@ -116,7 +117,7 @@ public class TicTacToeGame
 
     public static bool CheckForWinner(Player currentPlayer)
     {
-        char[,] squares = Grid.Squares;
+        char[,] squares = Grid.WinConditions;
         bool winner = false;
         int count = 0;
 
@@ -124,7 +125,11 @@ public class TicTacToeGame
         {
             for (int column = 0; column < squares.GetLength(1); column++)
             {
-                if (squares[row, column] == currentPlayer.CrossOrNaught)
+                if (squares[row, column] == ' ')
+                {
+                    continue;
+                }
+                else if (squares[row, column] == currentPlayer.CrossOrNaught)
                 {
                     count++;
                 }
@@ -132,11 +137,12 @@ public class TicTacToeGame
                 {
                     count--;
                 }
+            }
 
-                if (count == 3)
-                {
-                    winner = true;
-                }
+            if (count == 3)
+            {
+                winner = true;
+                break;
             }
         }
 
