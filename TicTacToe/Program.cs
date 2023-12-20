@@ -1,5 +1,5 @@
 ﻿TicTacToeGame game = new();
-Grid board = new();
+Grid squares = new();
 Player player1 = new('X');
 Player player2 = new('O');
 Player currentPlayer = player1;
@@ -9,15 +9,19 @@ game.ToggleGame();
 while (game.InPlay)
 {
     Console.WriteLine($"It is {currentPlayer.CrossOrNaught}'s turn.\n");
-    board.Draw();
+    squares.Draw();
+    Console.WriteLine();
 
     Console.Write("What square do you want to play in? ");
     int chosenSquare = Convert.ToInt32(Console.ReadLine());
 
-    board.SetSquare(chosenSquare, currentPlayer);
+    squares.SetSquare(chosenSquare, currentPlayer);
+
+    Console.WriteLine();
+
     if (TicTacToeGame.CheckForWinner(currentPlayer))
     {
-        board.Draw();
+        squares.Draw();
         Console.WriteLine($"\n{currentPlayer.CrossOrNaught} has won the game!");
         game.ToggleGame();
     };
@@ -39,18 +43,6 @@ public class Grid
         { ' ', ' ', ' ' }
     };
 
-    public static char[,] WinConditions { get; private set; } = new char[8, 3]
-    {
-        { Squares[0, 0], Squares[0, 1], Squares[0, 2] },
-        { Squares[1, 0], Squares[1, 1], Squares[1, 2] },
-        { Squares[2, 0], Squares[2, 1], Squares[2, 2] },
-        { Squares[0, 0], Squares[1, 0], Squares[2, 0] },
-        { Squares[0, 1], Squares[1, 1], Squares[2, 1] },
-        { Squares[0, 2], Squares[1, 2], Squares[2, 2] },
-        { Squares[0, 0], Squares[1, 1], Squares[2, 2] },
-        { Squares[2, 0], Squares[1, 1], Squares[0, 2] },
-    };
-
     public void Draw()
     {
         Console.WriteLine($" {Squares[0, 0]} | {Squares[0, 1]} | {Squares[0, 2]} ");
@@ -66,39 +58,30 @@ public class Grid
         {
             case 1:
                 Squares[0, 0] = currentPlayer.CrossOrNaught;
-                WinConditions[0, 0] = currentPlayer.CrossOrNaught;
                 break;
             case 2:
                 Squares[0, 1] = currentPlayer.CrossOrNaught;
-                WinConditions[0, 1] = currentPlayer.CrossOrNaught;
                 break;
             case 3:
                 Squares[0, 2] = currentPlayer.CrossOrNaught;
-                WinConditions[0, 2] = currentPlayer.CrossOrNaught;
                 break;
             case 4:
                 Squares[1, 0] = currentPlayer.CrossOrNaught;
-                WinConditions[1, 0] = currentPlayer.CrossOrNaught;
                 break;
             case 5:
                 Squares[1, 1] = currentPlayer.CrossOrNaught;
-                WinConditions[1, 1] = currentPlayer.CrossOrNaught;
                 break;
             case 6:
                 Squares[1, 2] = currentPlayer.CrossOrNaught;
-                WinConditions[1, 2] = currentPlayer.CrossOrNaught;
                 break;
             case 7:
                 Squares[2, 0] = currentPlayer.CrossOrNaught;
-                WinConditions[2, 0] = currentPlayer.CrossOrNaught;
                 break;
             case 8:
                 Squares[2, 1] = currentPlayer.CrossOrNaught;
-                WinConditions[2, 1] = currentPlayer.CrossOrNaught;
                 break;
             case 9:
                 Squares[2, 2] = currentPlayer.CrossOrNaught;
-                WinConditions[2, 2] = currentPlayer.CrossOrNaught;
                 break;
             default:
                 throw new IndexOutOfRangeException("1-9 required.");
@@ -117,35 +100,64 @@ public class TicTacToeGame
 
     public static bool CheckForWinner(Player currentPlayer)
     {
-        char[,] squares = Grid.WinConditions;
-        bool winner = false;
-        int count = 0;
+        char[,] squares = Grid.Squares;
 
-        for (int row = 0; row < squares.GetLength(0); row++)
+        if (squares[0, 0] == currentPlayer.CrossOrNaught &&
+            squares[0, 1] == currentPlayer.CrossOrNaught &&
+            squares[0, 2] == currentPlayer.CrossOrNaught)
         {
-            for (int column = 0; column < squares.GetLength(1); column++)
-            {
-                if (squares[row, column] == ' ')
-                {
-                    continue;
-                }
-                else if (squares[row, column] == currentPlayer.CrossOrNaught)
-                {
-                    count++;
-                }
-                else
-                {
-                    count--;
-                }
-            }
-
-            if (count == 3)
-            {
-                winner = true;
-                break;
-            }
+            return true;
         }
 
-        return winner;
+        if (squares[1, 0] == currentPlayer.CrossOrNaught &&
+            squares[1, 1] == currentPlayer.CrossOrNaught &&
+            squares[1, 2] == currentPlayer.CrossOrNaught)
+        {
+            return true;
+        }
+
+        if (squares[2, 0] == currentPlayer.CrossOrNaught &&
+            squares[2, 1] == currentPlayer.CrossOrNaught &&
+            squares[2, 2] == currentPlayer.CrossOrNaught)
+        {
+            return true;
+        }
+
+        if (squares[0, 0] == currentPlayer.CrossOrNaught &&
+            squares[1, 0] == currentPlayer.CrossOrNaught &&
+            squares[2, 0] == currentPlayer.CrossOrNaught)
+        {
+            return true;
+        }
+
+        if (squares[0, 1] == currentPlayer.CrossOrNaught &&
+            squares[1, 1] == currentPlayer.CrossOrNaught &&
+            squares[2, 1] == currentPlayer.CrossOrNaught)
+        {
+            return true;
+        }
+
+        if (squares[0, 2] == currentPlayer.CrossOrNaught &&
+            squares[1, 2] == currentPlayer.CrossOrNaught &&
+            squares[2, 2] == currentPlayer.CrossOrNaught)
+        {
+            return true;
+        }
+
+        if (squares[0, 0] == currentPlayer.CrossOrNaught &&
+            squares[1, 1] == currentPlayer.CrossOrNaught &&
+            squares[2, 2] == currentPlayer.CrossOrNaught)
+        {
+            return true;
+        }
+
+        if (squares[2, 0] == currentPlayer.CrossOrNaught &&
+            squares[1, 1] == currentPlayer.CrossOrNaught &&
+            squares[0, 2] == currentPlayer.CrossOrNaught)
+        {
+            return true;
+        }
+
+        return false;
     }
 }
