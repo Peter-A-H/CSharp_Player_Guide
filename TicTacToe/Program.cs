@@ -1,151 +1,143 @@
-﻿TicTacToeGame game = new();
-Grid board = new();
-Player player1 = new('X');
-Player player2 = new('O');
-Player currentPlayer = player1;
-
-game.ToggleGame();
-
-while (game.InPlay)
-{
-    Console.WriteLine($"It is {currentPlayer.CrossOrNaught}'s turn.\n");
-    board.Draw();
-
-    Console.Write("What square do you want to play in? ");
-    int chosenSquare = Convert.ToInt32(Console.ReadLine());
-
-    board.SetSquare(chosenSquare, currentPlayer);
-    if (TicTacToeGame.CheckForWinner(currentPlayer))
-    {
-        board.Draw();
-        Console.WriteLine($"\n{currentPlayer.CrossOrNaught} has won the game!");
-        game.ToggleGame();
-    };
-
-    currentPlayer = (currentPlayer == player1) ? player2 : player1;
-}
-
-public class Player(char crossOrNaught)
-{
-    public char CrossOrNaught { get; private set; } = crossOrNaught;
-}
-
-public class Grid
-{
-    public static char[,] Squares { get; private set; } = new char[3, 3]
-    {
-        { ' ', ' ', ' ' },
-        { ' ', ' ', ' ' },
-        { ' ', ' ', ' ' }
-    };
-
-    public static char[,] WinConditions { get; private set; } = new char[8, 3]
-    {
-        { Squares[0, 0], Squares[0, 1], Squares[0, 2] },
-        { Squares[1, 0], Squares[1, 1], Squares[1, 2] },
-        { Squares[2, 0], Squares[2, 1], Squares[2, 2] },
-        { Squares[0, 0], Squares[1, 0], Squares[2, 0] },
-        { Squares[0, 1], Squares[1, 1], Squares[2, 1] },
-        { Squares[0, 2], Squares[1, 2], Squares[2, 2] },
-        { Squares[0, 0], Squares[1, 1], Squares[2, 2] },
-        { Squares[2, 0], Squares[1, 1], Squares[0, 2] },
-    };
-
-    public void Draw()
-    {
-        Console.WriteLine($" {Squares[0, 0]} | {Squares[0, 1]} | {Squares[0, 2]} ");
-        Console.WriteLine($"---+---+---");
-        Console.WriteLine($" {Squares[1, 0]} | {Squares[1, 1]} | {Squares[1, 2]} ");
-        Console.WriteLine($"---+---+---");
-        Console.WriteLine($" {Squares[2, 0]} | {Squares[2, 1]} | {Squares[2, 2]} ");
-    }
-
-    public void SetSquare(int squareChoice, Player currentPlayer)
-    {
-        switch (squareChoice)
-        {
-            case 1:
-                Squares[0, 0] = currentPlayer.CrossOrNaught;
-                WinConditions[0, 0] = currentPlayer.CrossOrNaught;
-                break;
-            case 2:
-                Squares[0, 1] = currentPlayer.CrossOrNaught;
-                WinConditions[0, 1] = currentPlayer.CrossOrNaught;
-                break;
-            case 3:
-                Squares[0, 2] = currentPlayer.CrossOrNaught;
-                WinConditions[0, 2] = currentPlayer.CrossOrNaught;
-                break;
-            case 4:
-                Squares[1, 0] = currentPlayer.CrossOrNaught;
-                WinConditions[1, 0] = currentPlayer.CrossOrNaught;
-                break;
-            case 5:
-                Squares[1, 1] = currentPlayer.CrossOrNaught;
-                WinConditions[1, 1] = currentPlayer.CrossOrNaught;
-                break;
-            case 6:
-                Squares[1, 2] = currentPlayer.CrossOrNaught;
-                WinConditions[1, 2] = currentPlayer.CrossOrNaught;
-                break;
-            case 7:
-                Squares[2, 0] = currentPlayer.CrossOrNaught;
-                WinConditions[2, 0] = currentPlayer.CrossOrNaught;
-                break;
-            case 8:
-                Squares[2, 1] = currentPlayer.CrossOrNaught;
-                WinConditions[2, 1] = currentPlayer.CrossOrNaught;
-                break;
-            case 9:
-                Squares[2, 2] = currentPlayer.CrossOrNaught;
-                WinConditions[2, 2] = currentPlayer.CrossOrNaught;
-                break;
-            default:
-                throw new IndexOutOfRangeException("1-9 required.");
-        }
-    }
-}
+﻿new TicTacToeGame().Run();
 
 public class TicTacToeGame
 {
-    public bool InPlay { get; private set; } = false;
-
-    public void ToggleGame()
+    public void Run()
     {
-        InPlay = !InPlay;
-    }
+        Board board = new();
+        BoardRenderer renderer = new();
+        Player player1 = new(Cell.X);
+        Player player2 = new(Cell.O);
+        int turnNumber = 0;
 
-    public static bool CheckForWinner(Player currentPlayer)
-    {
-        char[,] squares = Grid.WinConditions;
-        bool winner = false;
-        int count = 0;
+        Player currentPlayer = player1;
 
-        for (int row = 0; row < squares.GetLength(0); row++)
+        while (turnNumber < 9)
         {
-            for (int column = 0; column < squares.GetLength(1); column++)
+            renderer.Draw(board);
+            Console.WriteLine($"It is {currentPlayer.Symbol}'s turn.");
+            Square square = currentPlayer.PickSquare(board);
+            board.FillCell(square.Row, square.Column, currentPlayer.Symbol);
+
+            if (HasWon(board, Cell.X))
             {
-                if (squares[row, column] == ' ')
-                {
-                    continue;
-                }
-                else if (squares[row, column] == currentPlayer.CrossOrNaught)
-                {
-                    count++;
-                }
-                else
-                {
-                    count--;
-                }
+                renderer.Draw(board);
+                Console.WriteLine("X Won!");
+                return;
+            }
+            else if (HasWon(board, Cell.O))
+            {
+                renderer.Draw(board);
+                Console.WriteLine("O Won!");
+                return;
             }
 
-            if (count == 3)
-            {
-                winner = true;
-                break;
-            }
+            currentPlayer = currentPlayer == player1 ? player2 : player1;
+            turnNumber++;
         }
 
-        return winner;
+        renderer.Draw(board);
+        Console.WriteLine("Draw!");
+    }
+
+    private bool HasWon(Board board, Cell value)
+    {
+        // Check rows.
+        if (board.ContentsOf(0, 0) == value && board.ContentsOf(0, 1) == value && board.ContentsOf(0, 2) == value) return true;
+        if (board.ContentsOf(1, 0) == value && board.ContentsOf(1, 1) == value && board.ContentsOf(1, 2) == value) return true;
+        if (board.ContentsOf(2, 0) == value && board.ContentsOf(2, 1) == value && board.ContentsOf(2, 2) == value) return true;
+
+        // Check columns.
+        if (board.ContentsOf(0, 0) == value && board.ContentsOf(1, 0) == value && board.ContentsOf(2, 0) == value) return true;
+        if (board.ContentsOf(0, 1) == value && board.ContentsOf(1, 1) == value && board.ContentsOf(2, 1) == value) return true;
+        if (board.ContentsOf(0, 2) == value && board.ContentsOf(1, 2) == value && board.ContentsOf(2, 2) == value) return true;
+
+        // Check diagonals.
+        if (board.ContentsOf(0, 0) == value && board.ContentsOf(1, 1) == value && board.ContentsOf(2, 2) == value) return true;
+        if (board.ContentsOf(2, 0) == value && board.ContentsOf(1, 1) == value && board.ContentsOf(0, 2) == value) return true;
+
+        return false;
     }
 }
+
+public class Player(Cell symbol)
+{
+    public Cell Symbol { get; } = symbol;
+
+    public Square PickSquare(Board board)
+    {
+        while (true)
+        {
+            Console.Write("What square do you want to play in? ");
+            ConsoleKey key = Console.ReadKey().Key;
+            Console.WriteLine();
+
+            Square choice = key switch
+            {
+                ConsoleKey.NumPad7 => new Square(0, 0),
+                ConsoleKey.NumPad8 => new Square(0, 1),
+                ConsoleKey.NumPad9 => new Square(0, 2),
+                ConsoleKey.NumPad4 => new Square(1, 0),
+                ConsoleKey.NumPad5 => new Square(1, 1),
+                ConsoleKey.NumPad6 => new Square(1, 2),
+                ConsoleKey.NumPad1 => new Square(2, 0),
+                ConsoleKey.NumPad2 => new Square(2, 1),
+                ConsoleKey.NumPad3 => new Square(2, 2),
+                _ => throw new NotImplementedException()
+            };
+
+            if (board.IsEmpty(choice.Row, choice.Column))
+                return choice;
+            else
+                Console.WriteLine("That square is already taken.");
+        }
+    }
+}
+
+public class BoardRenderer
+{
+    public void Draw(Board board)
+    {
+        char[,] symbols = new char[3, 3];
+        symbols[0, 0] = GetCharacterFor(board.ContentsOf(0, 0));
+        symbols[0, 1] = GetCharacterFor(board.ContentsOf(0, 1));
+        symbols[0, 2] = GetCharacterFor(board.ContentsOf(0, 2));
+        symbols[1, 0] = GetCharacterFor(board.ContentsOf(1, 0));
+        symbols[1, 1] = GetCharacterFor(board.ContentsOf(1, 1));
+        symbols[1, 2] = GetCharacterFor(board.ContentsOf(1, 2));
+        symbols[2, 0] = GetCharacterFor(board.ContentsOf(2, 0));
+        symbols[2, 1] = GetCharacterFor(board.ContentsOf(2, 1));
+        symbols[2, 2] = GetCharacterFor(board.ContentsOf(2, 2));
+
+        Console.WriteLine($" {symbols[0, 0]} | {symbols[0, 1]} | {symbols[0, 2]}");
+        Console.WriteLine("---+---+---");
+        Console.WriteLine($" {symbols[1, 0]} | {symbols[1, 1]} | {symbols[1, 2]}");
+        Console.WriteLine("---+---+---");
+        Console.WriteLine($" {symbols[2, 0]} | {symbols[2, 1]} | {symbols[2, 2]}");
+    }
+
+    private char GetCharacterFor(Cell cell) => cell switch
+    {
+        Cell.X => 'X',
+        Cell.O => 'O',
+        Cell.Empty => ' ',
+        _ => throw new NotImplementedException()
+    };
+}
+
+public class Square(int row, int column)
+{
+    public int Row { get; } = row;
+    public int Column { get; } = column;
+}
+
+public class Board
+{
+    private readonly Cell[,] _cells = new Cell[3, 3];
+
+    public Cell ContentsOf(int row, int column) => _cells[row, column];
+    public void FillCell(int row, int column, Cell value) => _cells[row, column] = value;
+    public bool IsEmpty(int row, int column) => _cells[row, column] == Cell.Empty;
+}
+
+public enum Cell { Empty, X, O }
