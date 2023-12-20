@@ -1,5 +1,5 @@
 ﻿TicTacToeGame game = new();
-Grid squares = new();
+Grid grid = new();
 Player player1 = new('X');
 Player player2 = new('O');
 Player currentPlayer = player1;
@@ -9,19 +9,19 @@ game.ToggleGame();
 while (game.InPlay)
 {
     Console.WriteLine($"It is {currentPlayer.CrossOrNaught}'s turn.\n");
-    squares.Draw();
+    grid.Draw();
     Console.WriteLine();
 
     Console.Write("What square do you want to play in? ");
     int chosenSquare = Convert.ToInt32(Console.ReadLine());
 
-    squares.SetSquare(chosenSquare, currentPlayer);
+    grid.SetSquare(chosenSquare, currentPlayer);
 
     Console.WriteLine();
 
-    if (TicTacToeGame.CheckForWinner(currentPlayer))
+    if (game.CheckForWinner(currentPlayer, grid))
     {
-        squares.Draw();
+        grid.Draw();
         Console.WriteLine($"\n{currentPlayer.CrossOrNaught} has won the game!");
         game.ToggleGame();
     };
@@ -36,7 +36,7 @@ public class Player(char crossOrNaught)
 
 public class Grid
 {
-    public static char[,] Squares { get; private set; } = new char[3, 3]
+    public char[,] Squares { get; private set; } = new char[3, 3]
     {
         { ' ', ' ', ' ' },
         { ' ', ' ', ' ' },
@@ -98,9 +98,9 @@ public class TicTacToeGame
         InPlay = !InPlay;
     }
 
-    public static bool CheckForWinner(Player currentPlayer)
+    public bool CheckForWinner(Player currentPlayer, Grid grid)
     {
-        char[,] squares = Grid.Squares;
+        char[,] squares = grid.Squares;
 
         if (squares[0, 0] == currentPlayer.CrossOrNaught &&
             squares[0, 1] == currentPlayer.CrossOrNaught &&
