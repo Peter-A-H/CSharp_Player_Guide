@@ -50,7 +50,6 @@ public class InventoryItem(float weight, float volume)
     public float Volume { get; private set; } = volume;
 }
 
-
 public class Arrow(float weight, float volume) : InventoryItem(weight, volume) { }
 
 public class Rope(float weight, float volume) : InventoryItem(weight, volume) { }
