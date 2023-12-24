@@ -1,42 +1,44 @@
 ﻿Pack pack = new(10, 15, 20);
+Arrow arrow = new(1, 2.5f);
+Sword sword = new(3, 5.5f);
 
-if (pack.Add(new Arrow(5, 10)))
-{
-    Console.WriteLine(pack.CurrentItemCount);
-    Console.WriteLine(pack.CurrentWeight);
-    Console.WriteLine(pack.CurrentVolume);
-}
-else
-{
-    Console.WriteLine("Inventory is full");
-}
+Console.WriteLine("Adding arrow to inventory");
+pack.Add(arrow);
+Console.WriteLine("Adding sword to inventory");
+pack.Add(sword);
 
 public class Pack(int totalItems, float maxWeight, float maxVolume)
 {
     public InventoryItem[] Items { get; private set; } = new InventoryItem[totalItems];
-    public float CurrentItemCount { get; private set; } = 0;
-    public float CurrentWeight { get; private set; } = 0;
-    public float CurrentVolume { get; private set; } = 0;
+    public float CurrentItemCount { get; private set; } = 0.0f;
+    public float CurrentWeight { get; private set; } = 0.0f;
+    public float CurrentVolume { get; private set; } = 0.0f;
 
-    private readonly int TotalItems = totalItems;
-    private readonly float MaxWeight = maxWeight;
-    private readonly float MaxVolume = maxVolume;
-    private int Count = 0;
+    private readonly int _totalItems = totalItems;
+    private readonly float _maxWeight = maxWeight;
+    private readonly float _maxVolume = maxVolume;
+    private int _count = 0;
 
     public bool Add(InventoryItem item)
     {
-        if (CurrentWeight + item.Weight > MaxWeight ||
-            CurrentVolume + item.Volume > MaxVolume ||
-            CurrentItemCount == TotalItems)
+        if (CurrentWeight + item.Weight > _maxWeight ||
+            CurrentVolume + item.Volume > _maxVolume ||
+            CurrentItemCount == _totalItems)
         {
+            Console.WriteLine("Inventory is full.");
             return false;
         }
 
-        Items[Count] = item;
+        Items[_count] = item;
         CurrentItemCount++;
         CurrentWeight += item.Weight;
         CurrentVolume += item.Volume;
-        Count++;
+        _count++;
+
+        Console.WriteLine($"Item count: {CurrentItemCount}");
+        Console.WriteLine($"Current weight: {CurrentWeight}");
+        Console.WriteLine($"Current volume: {CurrentVolume}");
+        Console.WriteLine();
 
         return true;
     }
