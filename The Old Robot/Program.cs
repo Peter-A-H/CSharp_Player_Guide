@@ -32,7 +32,7 @@ public class Robot
         foreach (RobotCommand? command in Commands)
         {
             command?.Run(this);
-            Console.WriteLine($"{X} {Y} {IsPowered}");
+            Console.WriteLine($"[{X} {Y} {IsPowered}]");
         }
     }
 }
