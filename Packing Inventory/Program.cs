@@ -10,14 +10,13 @@ pack.Add(sword);
 public class Pack(int totalItems, float maxWeight, float maxVolume)
 {
     public InventoryItem[] Items { get; private set; } = new InventoryItem[totalItems];
-    public float CurrentItemCount { get; private set; } = 0.0f;
+    public int CurrentItemCount { get; private set; } = 0;
     public float CurrentWeight { get; private set; } = 0.0f;
     public float CurrentVolume { get; private set; } = 0.0f;
 
     private readonly int _totalItems = totalItems;
     private readonly float _maxWeight = maxWeight;
     private readonly float _maxVolume = maxVolume;
-    private int _count = 0;
 
     public bool Add(InventoryItem item)
     {
@@ -29,11 +28,10 @@ public class Pack(int totalItems, float maxWeight, float maxVolume)
             return false;
         }
 
-        Items[_count] = item;
+        Items[CurrentItemCount] = item;
         CurrentItemCount++;
         CurrentWeight += item.Weight;
         CurrentVolume += item.Volume;
-        _count++;
 
         Console.WriteLine($"Item count: {CurrentItemCount}");
         Console.WriteLine($"Current weight: {CurrentWeight}");
