@@ -1,0 +1,25 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.8.34330.188
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "The Robot Pilot", "The Robot Pilot.csproj", "{DA5BA4FE-11DB-4469-B9C7-73639A79AA4A}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{DA5BA4FE-11DB-4469-B9C7-73639A79AA4A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{DA5BA4FE-11DB-4469-B9C7-73639A79AA4A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{DA5BA4FE-11DB-4469-B9C7-73639A79AA4A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{DA5BA4FE-11DB-4469-B9C7-73639A79AA4A}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {C3CE4ADD-830D-4197-98A5-DB531B45CCA6}
+	EndGlobalSection
+EndGlobal
