@@ -1,19 +1,34 @@
-﻿Game.Run();
+﻿Game game = CreateGame();
+game.Run();
 
-public static class Game
+static Game CreateGame()
+{
+    int TOTAL_ROWS = 4;
+    int TOTAL_COLS = 4;
+    Map map = new(TOTAL_ROWS, TOTAL_COLS);
+
+    int START_ROW = 0;
+    int START_COL = 0;
+    Location start = new(START_ROW, START_COL);
+
+    Player player = new(start);
+    return new Game(map, player);
+}
+
+public class Game(Map map, Player player)
 {
     public static bool InPlay { get; private set; } = true;
     public static bool IsFountainEnabled { get; private set; }
+    public Map Map { get; } = map;
+    public Player Player { get; } = player;
 
-    public static void Run()
+    public void Run()
     {
-        Map map = new();
-
         while (InPlay)
         {
-            Location.Current();
+            Player.Location.Current();
             if (!InPlay) break;
-            Location.MovePlayer();
+            Player.Location.Move();
         }
     }
 
@@ -28,11 +43,11 @@ public static class Game
         Console.WriteLine("You hear rushing waters from the Fountain of Objects. It has been reactivated!");
     }
 
-    public static bool HasPlayerEscaped()
+    public bool HasPlayerEscaped()
     {
         if (IsFountainEnabled &&
-            Location.Row == Location.Entrance[0] &&
-            Location.Column == Location.Entrance[1])
+            Player.Location.Row == Player.Location.Entrance[0] &&
+            Player.Location.Column == Player.Location.Entrance[1])
         {
             return true;
         }
@@ -41,26 +56,37 @@ public static class Game
     }
 }
 
-public readonly struct Map
+public class Player(Location start)
 {
-    public RoomContents[,] Grid { get; } = new RoomContents[4, 4];
+    public Location Location { get; } = start;
+}
 
-    public Map()
+public class Map
+{
+    public RoomType[,]? Grid { get; private set; }
+
+    public Map(int rows, int columns)
     {
-        Grid[0, 0] = RoomContents.Entrance;
-        Grid[0, 2] = RoomContents.Fountain;
+        Grid = new RoomType[rows, columns];
+        Grid[0, 0] = RoomType.Entrance;
+        Grid[0, 2] = RoomType.Fountain;
     }
 }
 
-public static class Location
+public class Location
 {
     public static int[] Player { get; private set; } = [0, 0];
-    public static int[] Entrance { get; } = [0, 0];
-    private static int[] Fountain { get; } = [0, 2];
-    public static int Row { get; private set; } = Player[0];
-    public static int Column { get; private set; } = Player[1];
+    public int[] Entrance { get; } = [0, 0];
+    private int[] Fountain { get; } = [0, 2];
+    public int Row { get; private set; } = Player[0];
+    public int Column { get; private set; } = Player[1];
 
-    public static void MovePlayer()
+    public Location(int startRow, int startCol)
+    {
+        Player = [startRow, startCol];
+    }
+
+    public void Move()
     {
         Console.Write("What do you want to do? ");
         string? response = Console.ReadLine();
@@ -102,7 +128,7 @@ public static class Location
         return true;
     }
 
-    public static void Current()
+    public void Current()
     {
         Console.WriteLine($"You are in the room at (Row={Row}, Column={Column})");
 
@@ -129,4 +155,4 @@ public static class Location
     }
 }
 
-public enum RoomContents { Empty, Fountain, Entrance }
+public enum RoomType { Empty, Fountain, Entrance }
