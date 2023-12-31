@@ -14,13 +14,11 @@ do
 
     if (playerType == 1)
     {
-        int playerSetManticoreDistance = new PlayerSetDistance().SetDistance();
-        manticoreDistance = playerSetManticoreDistance;
+        manticoreDistance = new PlayerSetDistance().SetDistance();
     }
     else if (playerType == 2)
     {
-        int randomManticoreDistance = new RandomDistance().SetDistance();
-        manticoreDistance = randomManticoreDistance;
+        manticoreDistance = new RandomDistance().SetDistance();
     }
 
     if (manticoreDistance < 0 || manticoreDistance > 100)
