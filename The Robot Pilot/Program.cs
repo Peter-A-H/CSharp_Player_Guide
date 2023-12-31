@@ -6,20 +6,18 @@ int round = 1;
 
 Console.Write("Do you want to play 2-player or against the computer? (1: 2-player 2: Computer): ");
 int playerType = Convert.ToInt32(Console.ReadLine());
-int manticoreDistance = 0;
+int manticoreDistance;
 
 do
 {
     Console.Write("How far away from the city do you want to station the Manticore? (0-100) ");
 
-    if (playerType == 1)
+    manticoreDistance = playerType switch
     {
-        manticoreDistance = new PlayerSetDistance().SetDistance();
-    }
-    else if (playerType == 2)
-    {
-        manticoreDistance = new RandomDistance().SetDistance();
-    }
+        1 => new PlayerSetDistance().SetDistance(),
+        2 => new RandomDistance().SetDistance(),
+        _ => new PlayerSetDistance().SetDistance(),
+    };
 
     if (manticoreDistance < 0 || manticoreDistance > 100)
     {
