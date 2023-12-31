@@ -56,12 +56,12 @@ public class Game(Map map, Player player)
     }
 }
 
-public class Player(Location start)
+public readonly struct Player(Location start)
 {
     public Location Location { get; } = start;
 }
 
-public class Map
+public struct Map
 {
     public RoomType[,]? Grid { get; private set; }
 
