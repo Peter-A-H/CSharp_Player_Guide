@@ -17,8 +17,8 @@ static Game CreateGame()
 
 public class Game(Map map, Player player)
 {
-    public static bool InPlay { get; private set; } = true;
-    public static bool IsFountainEnabled { get; private set; }
+    public bool InPlay { get; private set; } = true;
+    public bool IsFountainEnabled { get; private set; }
     public Map Map { get; } = map;
     public Player Player { get; } = player;
 
@@ -26,18 +26,18 @@ public class Game(Map map, Player player)
     {
         while (InPlay)
         {
-            Player.Location.Current();
+            Player.Location.Current(this);
             if (!InPlay) break;
-            Player.Location.Move();
+            Player.Location.Move(this);
         }
     }
 
-    public static void End()
+    public void End()
     {
         InPlay = false;
     }
 
-    public static void EnableFountain()
+    public void EnableFountain()
     {
         IsFountainEnabled = true;
         Console.WriteLine("You hear rushing waters from the Fountain of Objects. It has been reactivated!");
@@ -86,7 +86,7 @@ public class Location
         Player = [startRow, startCol];
     }
 
-    public void Move()
+    public void Move(Game game)
     {
         Console.Write("What do you want to do? ");
         string? response = Console.ReadLine();
@@ -109,7 +109,7 @@ public class Location
                 Column--;
                 break;
             case "enable fountain":
-                Game.EnableFountain();
+                game.EnableFountain();
                 break;
         };
 
@@ -128,17 +128,17 @@ public class Location
         return true;
     }
 
-    public void Current()
+    public void Current(Game game)
     {
         Console.WriteLine($"You are in the room at (Row={Row}, Column={Column})");
 
-        if (Game.IsFountainEnabled &&
+        if (game.IsFountainEnabled &&
             Row == Entrance[0] &&
             Column == Entrance[1])
         {
             Console.WriteLine("The Fountain of Objects has been reactivated, and you have escaped with your life!");
             Console.WriteLine("You win!");
-            Game.End();
+            game.End();
         }
         else if (Row == Entrance[0] &&
                  Column == Entrance[1])
@@ -146,7 +146,7 @@ public class Location
             Console.WriteLine("You see light coming from the cavern entrance.");
         }
 
-        if (!Game.IsFountainEnabled &&
+        if (!game.IsFountainEnabled &&
             Row == Fountain[0] &&
             Column == Fountain[1])
         {
