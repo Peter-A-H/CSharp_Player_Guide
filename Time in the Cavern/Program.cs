@@ -39,6 +39,7 @@ public class Game(Map map, Player player)
     public void End()
     {
         InPlay = false;
+        TimeInCaverns();
     }
 
     public void EnableFountain()
@@ -152,7 +153,6 @@ public class Location
             Console.WriteLine("The Fountain of Objects has been reactivated, and you have escaped with your life!");
             Console.WriteLine("You win!");
             game.End();
-            game.TimeInCaverns();
         }
         else if (Row == Entrance[0] &&
                  Column == Entrance[1])
