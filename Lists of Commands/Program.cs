@@ -3,7 +3,7 @@
 for (int index = 0; index < robot.MaxCommands; index++)
 {
     string? input = Console.ReadLine();
-    RobotCommand newCommand = input switch
+    robot.Commands.Add(input switch
     {
         "on" => new OnCommand(),
         "off" => new OffCommand(),
@@ -12,8 +12,7 @@ for (int index = 0; index < robot.MaxCommands; index++)
         "east" => new EastCommand(),
         "west" => new WestCommand(),
         _ => new OffCommand(),
-    };
-    robot.Commands.Add(newCommand);
+    });
 }
 
 Console.WriteLine();
