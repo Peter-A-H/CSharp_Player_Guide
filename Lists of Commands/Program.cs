@@ -1,8 +1,9 @@
 ﻿Robot robot = new();
 
-for (int index = 0; index < robot.MaxCommands; index++)
+while (true)
 {
     string? input = Console.ReadLine();
+    if (input == "stop") break;
     robot.Commands.Add(input switch
     {
         "on" => new OnCommand(),
@@ -24,7 +25,6 @@ public class Robot
     public int X { get; set; }
     public int Y { get; set; }
     public bool IsPowered { get; set; }
-    public int MaxCommands { get; } = 3;
     public List<IRobotCommand> Commands { get; } = [];
 
     public void Run()
