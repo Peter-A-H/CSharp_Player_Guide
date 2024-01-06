@@ -11,13 +11,14 @@ public record Cookie
 public class Player(int playerType)
 {
     public int ChosenNumber { get; private set; }
-    public static List<int> PreviousNumbers { get; private set; } = [];
     public int PlayerType { get; private set; } = playerType;
+    public static List<int> PreviousNumbers { get; private set; } = [];
 
     public void PickNumber()
     {
-        Console.Write($"Player {PlayerType}, pick a number between 0 - 9: ");
+        Console.Write($"Player {PlayerType}, pick a number between 0-9: ");
         string? response = Console.ReadLine();
+        if (response == null) return;
         int chosenNumber = 0;
 
         try
@@ -27,27 +28,19 @@ public class Player(int playerType)
         catch (FormatException exception)
         {
             Console.WriteLine(exception.Message);
-            PickNumber();
-        }
-
-        if (response == null)
-        {
-            Console.WriteLine("Null value entered.\n");
-            PickNumber();
         }
 
         if (chosenNumber < 0 || chosenNumber > 9)
         {
-            Console.Write("Please enter a number between 0 - 9.\n");
-            PickNumber();
+            throw new ValueOutOfRangeException("Please enter a number between 0-9.\n");
         }
 
         if (PreviousNumbers.Contains(chosenNumber))
         {
-            Console.WriteLine($"{response} has already been chosen before.\n");
-            PickNumber();
+            throw new DuplicateValueException($"{response} has already been chosen before.");
         }
 
+        Console.WriteLine($"Chosen number: {chosenNumber}");
         ChosenNumber = chosenNumber;
         PreviousNumbers.Add(ChosenNumber);
     }
@@ -64,7 +57,22 @@ public class CookieGame
     {
         while (true)
         {
-            CurrentPlayer.PickNumber();
+            Console.WriteLine($"Cookie: {Cookie.OatmealRaisin}");
+
+            try
+            {
+                CurrentPlayer.PickNumber();
+            }
+            catch (ValueOutOfRangeException exception)
+            {
+                Console.WriteLine(exception.Message);
+                CurrentPlayer.PickNumber();
+            }
+            catch (DuplicateValueException exception)
+            {
+                Console.WriteLine(exception.Message);
+                CurrentPlayer.PickNumber();
+            }
 
             try
             {
@@ -92,3 +100,5 @@ public class CookieGame
 }
 
 public class OatmealCookieException(string message) : Exception(message) { }
+public class ValueOutOfRangeException(string message) : Exception(message) { }
+public class DuplicateValueException(string message) : Exception(message) { }
