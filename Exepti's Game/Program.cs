@@ -18,16 +18,19 @@ public class Player(int playerType)
     {
         Console.Write($"Player {PlayerType}, pick a number between 0 - 9: ");
         string? response = Console.ReadLine();
+
         if (response == null)
         {
             Console.Write("Null value entered.\n");
             PickNumber();
         }
+
         if (PreviousNumbers.Contains(Convert.ToInt32(response)))
         {
             Console.Write($"{response} has already been chosen before.\n");
             PickNumber();
         }
+
         ChosenNumber = Convert.ToInt32(response);
         PreviousNumbers.Add(ChosenNumber);
     }
@@ -45,7 +48,25 @@ public class CookieGame
         while (InPlay)
         {
             Player1.PickNumber();
+
+            try
+            {
+                WasOatmealCookieChosen();
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e.Message);
+            }
+
             Console.WriteLine(Cookie.OatmealRaisin);
+        }
+    }
+
+    public void WasOatmealCookieChosen()
+    {
+        if (Player1.ChosenNumber == Cookie.OatmealRaisin)
+        {
+            throw new Exception("Oatmeal raisin cookie was chosen!\n");
         }
     }
 }
