@@ -5,7 +5,7 @@ namespace Game
     public class Player(int playerType)
     {
         public int ChosenNumber { get; private set; }
-        public int PlayerType { get; private set; } = playerType;
+        public int PlayerType { get; } = playerType;
         public static List<int> PreviousNumbers { get; private set; } = [];
 
         public void PickNumber()

@@ -11,7 +11,7 @@ namespace Game
         public static Player Player1 { get; private set; } = new(1);
         public static Player Player2 { get; private set; } = new(2);
         public Player CurrentPlayer { get; private set; } = Player1;
-        public Cookie Cookie { get; private set; } = new();
+        public Cookie Cookie { get; } = new();
 
         public void Run()
         {
