@@ -6,22 +6,13 @@
     Console.WriteLine("3: Check for multiples of 10.");
     int response = Convert.ToInt32(Console.ReadLine());
 
-    Sieve sieve;
-    switch (response)
+    Sieve sieve = response switch
     {
-        case 1:
-            sieve = new(IsEven);
-            break;
-        case 2:
-            sieve = new(IsPositive);
-            break;
-        case 3:
-            sieve = new(IsMultipleOfTen);
-            break;
-        default:
-            sieve = new(IsEven);
-            break;
-    }
+        1 => new(IsEven),
+        2 => new(IsPositive),
+        3 => new(IsMultipleOfTen),
+        _ => new(IsEven),
+    };
 
     Console.Write("Enter a number to check: ");
     int numberToCheck = Convert.ToInt32(Console.ReadLine());
@@ -35,7 +26,7 @@ static bool IsMultipleOfTen(int number) => number % 10 == 0;
 
 public class Sieve(Func<int, bool> operation)
 {
-    public Func<int, bool> Operation { get; private set; } = operation;
+    private readonly Func<int, bool> _operation = operation;
 
-    public bool IsGood(int number) => Operation(number);
+    public bool IsGood(int number) => _operation(number);
 }
