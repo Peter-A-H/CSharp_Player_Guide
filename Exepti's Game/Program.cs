@@ -1,10 +1,8 @@
 ﻿using CustomExceptions;
 using Game;
 
-CookieGame game = CreateGame();
+CookieGame game = new();
 game.Run();
-
-static CookieGame CreateGame() => new();
 
 namespace Game
 {
