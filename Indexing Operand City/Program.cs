@@ -3,6 +3,8 @@ BlockOffset offset = new(2, 0);
 Console.WriteLine($"Coords - row: {coords[0]}, column: {coords[1]}");
 Console.WriteLine(coords + offset);
 Console.WriteLine(coords + Direction.North);
+BlockOffset convertedOffset = Direction.North;
+Console.WriteLine(convertedOffset);
 
 public record BlockCoordinate(int Row, int Column)
 {
@@ -34,5 +36,19 @@ public record BlockCoordinate(int Row, int Column)
     }
 }
 
-public record BlockOffset(int RowOffset, int ColumnOffset);
+public record BlockOffset(int RowOffset, int ColumnOffset)
+{
+    public static implicit operator BlockOffset(Direction direction)
+    {
+        return direction switch
+        {
+            Direction.North => new BlockOffset(-1, 0),
+            Direction.South => new BlockOffset(+1, 0),
+            Direction.West => new BlockOffset(0, -1),
+            Direction.East => new BlockOffset(0, +1),
+            _ => throw new NotImplementedException()
+        };
+    }
+}
+
 public enum Direction { North, East, South, West }
