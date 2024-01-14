@@ -31,6 +31,15 @@ List<Player> players = [];
 players.Add(new Player(1, "Player 1", "Red"));
 players.Add(new Player(1, "Player 2", "Blue"));
 
+IEnumerable<string> deadShip = from Ship obj in objects
+                               where obj.HP == 0
+                               select $"{obj.HP}/{obj.MaxHP}";
+
+foreach (string hp in deadShip)
+{
+    Console.WriteLine($"HP: {hp}");
+}
+
 public class GameObject
 {
     public int ID { get; init; }
