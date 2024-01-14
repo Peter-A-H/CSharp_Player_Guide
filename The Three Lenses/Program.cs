@@ -1,55 +1,55 @@
-﻿List<GameObject> objects = [];
-objects.Add(new Ship
-{
-    ID = 1,
-    X = 0,
-    Y = 0,
-    HP = 50,
-    MaxHP = 100,
-    PlayerID = 1
-});
-objects.Add(new Ship
-{
-    ID = 2,
-    X = 4,
-    Y = 2,
-    HP = 75,
-    MaxHP = 100,
-    PlayerID = 1
-});
-objects.Add(new Ship
-{
-    ID = 3,
-    X = 9,
-    Y = 3,
-    HP = 0,
-    MaxHP = 100,
-    PlayerID = 2
-});
+﻿int[] numArray = [1, 9, 2, 8, 3, 7, 4, 6, 5];
+IEnumerable<int> procedural = Procedural(numArray);
+IEnumerable<int> keyword = Keyword(numArray);
+IEnumerable<int> methodCall = MethodCall(numArray);
 
-List<Player> players = [];
-players.Add(new Player(1, "Player 1", "Red"));
-players.Add(new Player(1, "Player 2", "Blue"));
-
-IEnumerable<string> deadShip = from Ship obj in objects
-                               where obj.HP == 0
-                               select $"{obj.HP}/{obj.MaxHP}";
-
-foreach (string hp in deadShip)
+foreach (int num in procedural)
 {
-    Console.WriteLine($"HP: {hp}");
+    Console.WriteLine(num);
 }
 
-public class GameObject
+Console.WriteLine();
+
+foreach (int num in keyword)
 {
-    public int ID { get; init; }
-    public double X { get; init; }
-    public double Y { get; init; }
-    public int MaxHP { get; init; }
-    public int HP { get; init; }
-    public int PlayerID { get; init; }
+    Console.WriteLine(num);
 }
 
-public class Ship : GameObject { }
+Console.WriteLine();
 
-public record Player(int ID, string UserName, string TeamColor);
+foreach (int num in methodCall)
+{
+    Console.WriteLine(num);
+}
+
+static IEnumerable<int> Procedural(int[] input)
+{
+    Array.Sort(input);
+    List<int> evenNumbers = [];
+
+    foreach (int num in input)
+    {
+        if (num % 2 == 0)
+        {
+            evenNumbers.Add(num * 2);
+        }
+    }
+
+    return evenNumbers;
+}
+
+static IEnumerable<int> Keyword(int[] input)
+{
+    return from num in input
+           where num % 2 == 0
+           orderby num
+           select num * 2;
+}
+
+static IEnumerable<int> MethodCall(int[] input)
+{
+    return input
+                .Where(num => num % 2 == 0)
+                .OrderBy(num => num)
+                .Select(num => num * 2);
+}
