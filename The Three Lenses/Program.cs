@@ -38,18 +38,12 @@ static IEnumerable<int> Procedural(int[] input)
     return evenNumbers;
 }
 
-static IEnumerable<int> Keyword(int[] input)
-{
-    return from num in input
-           where num % 2 == 0
-           orderby num
-           select num * 2;
-}
+static IEnumerable<int> Keyword(int[] input) => from num in input
+                                                where num % 2 == 0
+                                                orderby num
+                                                select num * 2;
 
-static IEnumerable<int> MethodCall(int[] input)
-{
-    return input
-                .Where(num => num % 2 == 0)
-                .OrderBy(num => num)
-                .Select(num => num * 2);
-}
+
+static IEnumerable<int> MethodCall(int[] input) => input.Where(num => num % 2 == 0)
+                                                        .OrderBy(num => num)
+                                                        .Select(num => num * 2);
