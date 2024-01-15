@@ -11,7 +11,7 @@ while (true)
     Console.ReadKey(false);
 
     bool isDuplicate;
-    lock (recentNumbers)
+    lock (recentNumbers) // use a mutex to only allow 1 thread to access shared data at a time
     {
         isDuplicate = recentNumbers.MostRecent == recentNumbers.SecondMostRecent;
     }
@@ -28,9 +28,9 @@ while (true)
 
 static void GenerateNumbers(object? obj)
 {
-    if (obj == null || obj is not RecentNumbers) return;
+    if (obj is null or not RecentNumbers) return;
 
-    RecentNumbers recentNumbers = (RecentNumbers)obj;
+    RecentNumbers recentNumbers = (RecentNumbers)obj; // downcast from obj to RecentNumbers type
     Random random = new();
 
     while (true)
