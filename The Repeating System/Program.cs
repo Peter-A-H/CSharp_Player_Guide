@@ -30,7 +30,7 @@ static void GenerateNumbers(object? obj)
 {
     if (obj is null or not RecentNumbers) return;
 
-    RecentNumbers recentNumbers = (RecentNumbers)obj; // downcast from obj to RecentNumbers type
+    RecentNumbers recentNumbers = (RecentNumbers)obj; // downcast from obj to RecentNumbers type to use the shared data
     Random random = new();
 
     while (true)
