@@ -1,18 +1,20 @@
 ﻿using System.Diagnostics;
 
-Stopwatch watch = new();
-
 Console.Write("Enter a word to randomly recreate: ");
 string? choice = Console.ReadLine();
 string word = choice ?? "hello";
 
+Stopwatch watch = new();
 watch.Start();
 int result = await RandomlyRecreateAsync(word);
 Console.WriteLine($"Number of attempts to randomly create '{word}': {result}");
 watch.Stop();
 Console.WriteLine($"This took {watch.ElapsedMilliseconds / 1000} seconds");
 
-Task<int> RandomlyRecreateAsync(string word) => Task.Run(() => RandomlyRecreate(word));
+Task<int> RandomlyRecreateAsync(string word)
+{
+    return Task.Run(() => RandomlyRecreate(word));
+}
 
 int RandomlyRecreate(string word)
 {
