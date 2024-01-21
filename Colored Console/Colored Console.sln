@@ -1,0 +1,25 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.8.34511.84
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Colored Console", "Colored Console.csproj", "{ACC8D78A-9290-41D9-ABEB-661294433AC1}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{ACC8D78A-9290-41D9-ABEB-661294433AC1}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{ACC8D78A-9290-41D9-ABEB-661294433AC1}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{ACC8D78A-9290-41D9-ABEB-661294433AC1}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{ACC8D78A-9290-41D9-ABEB-661294433AC1}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {4A5CA628-E648-4949-97D5-9386E63A0AAB}
+	EndGlobalSection
+EndGlobal
