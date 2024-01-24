@@ -1,4 +1,16 @@
-﻿public class UncodedOneGame
+﻿UncodedOneGame game = new();
+game.Run();
+
+public class UncodedOneGame
+{
+    public void Run()
+    {
+        Party heroes = new();
+        Party monsters = new();
+    }
+}
+
+public class Battle
 {
 
 }
@@ -10,15 +22,16 @@ public interface IAttackAction
 
 public class Party
 {
-
+    public List<Character> Characters { get; private set; } = [];
 }
 
 public class Character : Party
 {
-    public byte HP { get; set; }
+    public sbyte HP { get; private set; } = 100;
 
     public void DoNothing()
     {
+        return;
     }
 }
 
@@ -43,6 +56,8 @@ public class Monster : Character
 
 public class Skeleton : Monster, IAttackAction
 {
+    public string Name { get; private set; } = "SKELETON";
+
     public byte Attack()
     {
         Random random = new();
