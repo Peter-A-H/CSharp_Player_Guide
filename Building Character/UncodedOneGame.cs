@@ -10,8 +10,7 @@ public class UncodedOneGame
         Party heroes = new([new TrueProgrammer()]);
         Party monsters = new([new Skeleton()]);
         Battle battle = new(heroes, monsters);
-        Skeleton characterPlayingFirst = (Skeleton)monsters.Characters.First();
 
-        battle.Start(characterPlayingFirst);
+        battle.Start();
     }
 }
