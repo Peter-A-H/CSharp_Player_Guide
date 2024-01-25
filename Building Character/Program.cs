@@ -5,14 +5,29 @@ public class UncodedOneGame
 {
     public void Run()
     {
-        Party heroes = new();
-        Party monsters = new();
+        Party heroes = new([new TrueProgrammer()]);
+        Party monsters = new([new Skeleton()]);
+        Battle battle = new(heroes, monsters);
+        Skeleton characterPlayingFirst = (Skeleton)monsters.Characters.First();
+
+        battle.Start(characterPlayingFirst);
     }
 }
 
-public class Battle
+public class Battle(Party heroes, Party monsters)
 {
+    public Party Heroes = heroes;
+    public Party Monsters = monsters;
 
+    public void Start(Skeleton characterPlayingFirst)
+    {
+        while (true)
+        {
+            Console.WriteLine($"It is {characterPlayingFirst.Name}'s turn...");
+            Thread.Sleep(5000);
+            Console.WriteLine();
+        }
+    }
 }
 
 public interface IAttackAction
@@ -20,12 +35,12 @@ public interface IAttackAction
     public byte Attack();
 }
 
-public class Party
+public class Party(List<Character> characters)
 {
-    public List<Character> Characters { get; private set; } = [];
+    public List<Character> Characters { get; private set; } = characters;
 }
 
-public class Character : Party
+public class Character
 {
     public sbyte HP { get; private set; } = 100;
 
