@@ -1,7 +1,6 @@
-﻿namespace Building_Character.Party.Battle
+﻿namespace Building_Character.Party.Battle;
+
+public interface IAttackAction
 {
-    public interface IAttackAction
-    {
-        public byte Attack();
-    }
+    public byte Attack();
 }

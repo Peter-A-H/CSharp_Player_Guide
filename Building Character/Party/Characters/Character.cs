@@ -1,11 +1,9 @@
 ﻿namespace Building_Character.Party.Characters;
 
-public class Character
+public abstract class Character
 {
-    public sbyte HP { get; private set; } = 100;
+    public abstract sbyte HP { get; }
+    public abstract string Name { get; }
 
-    public string DoNothing()
-    {
-        return "NOTHING";
-    }
+    public void DoNothing() => Console.WriteLine($"{Name} did NOTHING.");
 }

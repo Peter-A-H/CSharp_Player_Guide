@@ -2,7 +2,7 @@
 
 namespace Building_Character.Party;
 
-public class Party(List<Character> characters)
+public class Party()
 {
-    public List<Character> Characters { get; private set; } = characters;
+    public List<Character> Characters { get; } = [];
 }

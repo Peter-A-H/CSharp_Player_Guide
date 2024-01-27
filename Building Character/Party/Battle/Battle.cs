@@ -1,25 +1,30 @@
-﻿using Building_Character.Party;
-using Building_Character.Party.Characters.Enemies;
-using Building_Character.Party.Characters.Heroes;
+﻿using Building_Character.Party.Characters;
+
+namespace Building_Character.Party.Battle;
 
 public class Battle(Party heroes, Party monsters)
 {
-    public Party Heroes { get; private set; } = heroes;
-    public Party Monsters { get; private set; } = monsters;
-    public dynamic? CurrentCharacter { get; private set; }
-    readonly Skeleton _enemy = (Skeleton)monsters.Characters.First();
-    readonly TrueProgrammer _hero = (TrueProgrammer)heroes.Characters.First();
+    private readonly Party Heroes = heroes;
+    private readonly Party Monsters = monsters;
 
     public void Start()
     {
-        CurrentCharacter = _hero;
         while (true)
         {
-            Console.WriteLine($"It is {CurrentCharacter.Name}'s turn...");
-            Console.WriteLine($"{CurrentCharacter.Name} did {CurrentCharacter.DoNothing()}.");
-            Console.WriteLine();
-            Thread.Sleep(5000);
-            CurrentCharacter = (CurrentCharacter == _hero) ? _enemy : _hero;
+            List<Party> parties = [Heroes, Monsters];
+
+            foreach (Party party in parties)
+            {
+                if (party == null) break;
+
+                foreach (Character character in party.Characters)
+                {
+                    Console.WriteLine($"{character.Name} is taking a turn...");
+                    character.DoNothing();
+                    Console.WriteLine();
+                    Thread.Sleep(500);
+                }
+            }
         }
     }
 }

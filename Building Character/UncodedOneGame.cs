@@ -1,14 +1,16 @@
 ﻿using Building_Character.Party;
-using Building_Character.Party.Characters.Enemies;
-using Building_Character.Party.Characters.Heroes;
+using Building_Character.Party.Battle;
+using Building_Character.Party.Characters;
 namespace Game;
 
 public class UncodedOneGame
 {
-    public void Run()
+    public static void Run()
     {
-        Party heroes = new([new TrueProgrammer()]);
-        Party monsters = new([new Skeleton()]);
+        Party heroes = new();
+        heroes.Characters.Add(new TrueProgrammer());
+        Party monsters = new();
+        monsters.Characters.Add(new Skeleton());
         Battle battle = new(heroes, monsters);
 
         battle.Start();
