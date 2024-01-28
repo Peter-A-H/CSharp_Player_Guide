@@ -1,6 +1,6 @@
 ﻿using Building_Character.Party.Characters;
 
-namespace Building_Character.Party.Battle;
+namespace Building_Character.Party;
 
 public class Battle(Party heroes, Party monsters)
 {
@@ -20,9 +20,8 @@ public class Battle(Party heroes, Party monsters)
                 foreach (Character character in party.Characters)
                 {
                     Console.WriteLine($"{character.Name} is taking a turn...");
-                    character.DoNothing();
+                    party.Player.ChooseAction(character).RunAction(character);
                     Console.WriteLine();
-                    Thread.Sleep(500);
                 }
             }
         }
