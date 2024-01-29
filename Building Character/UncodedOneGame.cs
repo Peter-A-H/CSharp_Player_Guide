@@ -1,7 +1,7 @@
-﻿using Building_Character.Parties;
-using Building_Character.Players;
-using Color;
-namespace Building_Character;
+﻿using Color;
+using TheUncodedOne.Parties;
+using TheUncodedOne.Players;
+namespace TheUncodedOne;
 
 public class UncodedOneGame
 {

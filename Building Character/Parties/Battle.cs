@@ -1,4 +1,4 @@
-﻿namespace Building_Character.Parties;
+﻿namespace TheUncodedOne.Parties;
 
 public class Battle(Party heroes, Party monsters)
 {

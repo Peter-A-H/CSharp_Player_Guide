@@ -1,4 +1,4 @@
-﻿namespace Building_Character.Action;
+﻿namespace TheUncodedOne.Action;
 
 public interface IAction
 {

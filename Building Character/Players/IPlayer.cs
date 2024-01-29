@@ -1,6 +1,6 @@
-﻿using Building_Character.Action;
+﻿using TheUncodedOne.Action;
 
-namespace Building_Character.Players;
+namespace TheUncodedOne.Players;
 
 public interface IPlayer
 {

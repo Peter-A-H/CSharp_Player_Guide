@@ -1,1 +1,1 @@
-﻿global using Building_Character.Characters;
+﻿global using TheUncodedOne.Characters;

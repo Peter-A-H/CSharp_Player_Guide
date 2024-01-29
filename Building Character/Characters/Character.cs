@@ -1,4 +1,4 @@
-﻿namespace Building_Character.Characters;
+﻿namespace TheUncodedOne.Characters;
 
 public abstract class Character
 {

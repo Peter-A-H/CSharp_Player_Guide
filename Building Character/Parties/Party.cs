@@ -1,6 +1,6 @@
-﻿using Building_Character.Players;
+﻿using TheUncodedOne.Players;
 
-namespace Building_Character.Parties;
+namespace TheUncodedOne.Parties;
 
 public class Party(IPlayer player)
 {

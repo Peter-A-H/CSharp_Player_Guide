@@ -1,4 +1,4 @@
-﻿namespace Building_Character.Characters;
+﻿namespace TheUncodedOne.Characters;
 
 public class TrueProgrammer(string name) : Character
 {
