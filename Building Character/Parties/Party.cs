@@ -1,7 +1,6 @@
-﻿using Building_Character.Characters;
-using Building_Character.Players;
+﻿using Building_Character.Players;
 
-namespace Building_Character.Party;
+namespace Building_Character.Parties;
 
 public class Party(IPlayer player)
 {

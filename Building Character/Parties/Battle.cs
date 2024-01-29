@@ -1,6 +1,4 @@
-﻿using Building_Character.Characters;
-
-namespace Building_Character.Party;
+﻿namespace Building_Character.Parties;
 
 public class Battle(Party heroes, Party monsters)
 {
