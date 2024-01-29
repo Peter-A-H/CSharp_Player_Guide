@@ -1,4 +1,4 @@
-﻿namespace Building_Character.Party.Characters;
+﻿namespace Building_Character.Characters;
 
 public class Skeleton : Character
 {

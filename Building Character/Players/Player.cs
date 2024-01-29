@@ -1,5 +1,5 @@
-﻿using Building_Character.Party.Action;
-using Building_Character.Party.Characters;
+﻿using Building_Character.Action;
+using Building_Character.Characters;
 
 namespace Building_Character.Players;
 

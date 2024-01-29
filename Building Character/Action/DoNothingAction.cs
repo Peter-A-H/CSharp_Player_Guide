@@ -1,6 +1,6 @@
-﻿using Building_Character.Party.Characters;
+﻿using Building_Character.Characters;
 
-namespace Building_Character.Party.Action;
+namespace Building_Character.Action;
 
 public class DoNothingAction : IAction
 {

@@ -1,4 +1,4 @@
-﻿using Building_Character.Party.Characters;
+﻿using Building_Character.Characters;
 using Building_Character.Players;
 
 namespace Building_Character.Party;

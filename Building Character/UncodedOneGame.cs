@@ -1,5 +1,5 @@
-﻿using Building_Character.Party;
-using Building_Character.Party.Characters;
+﻿using Building_Character.Characters;
+using Building_Character.Party;
 using Building_Character.Players;
 using Color;
 namespace Game;
