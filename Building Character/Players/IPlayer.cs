@@ -1,8 +1,9 @@
-﻿using TheUncodedOne.Action;
+﻿using TheUncodedOne.Attack;
+using TheUncodedOne.Parties;
 
 namespace TheUncodedOne.Players;
 
 public interface IPlayer
 {
-    IAction ChooseAction(Character character);
+    IAttack ChooseAction(Battle battle, Character character);
 }

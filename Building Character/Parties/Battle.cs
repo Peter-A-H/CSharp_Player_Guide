@@ -2,8 +2,8 @@
 
 public class Battle(Party heroes, Party monsters)
 {
-    private readonly Party Heroes = heroes;
-    private readonly Party Monsters = monsters;
+    public Party Heroes { get; } = heroes;
+    public Party Monsters { get; } = monsters;
 
     public void Start()
     {
@@ -18,7 +18,7 @@ public class Battle(Party heroes, Party monsters)
                 foreach (Character character in party.Characters)
                 {
                     Console.WriteLine($"{character.Name} is taking a turn...");
-                    party.Player.ChooseAction(character).RunAction(character);
+                    party.Player.ChooseAction(this, character).RunAction(this, character);
                     Console.WriteLine();
                 }
             }
