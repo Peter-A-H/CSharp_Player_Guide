@@ -5,6 +5,14 @@ namespace TheUncodedOne.Attack;
 public class Punch : IAttack
 {
     public string AttackName { get; set; } = "PUNCH";
+    public sbyte AttackDamage { get; } = 1;
 
-    public void RunAction(Battle battle, Character character) => Console.WriteLine($"{character.Name} did {AttackName} on {battle.Monsters.Characters[0].Name}");
+    public void RunAction(Battle battle, Character character)
+    {
+        Character target = battle.Monsters.Characters[0];
+
+        Console.WriteLine($"{character.Name} did {AttackName} on {target.Name}");
+        Console.WriteLine($"{AttackName} dealt {AttackDamage} damage to {target.Name}");
+        Console.WriteLine($"{target.Name} is now at {target.CurrentHP}");
+    }
 }

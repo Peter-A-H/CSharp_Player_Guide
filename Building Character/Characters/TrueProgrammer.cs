@@ -1,8 +1,9 @@
 ﻿namespace TheUncodedOne.Characters;
 
-public class TrueProgrammer(string name) : Character
+public class TrueProgrammer(string name) : Character(25)
 {
-    public override sbyte MaxHP => 25;
-    public override sbyte CurrentHP => MaxHP;
-    public override string Name => name;
+    public override string Name { get; } = name;
+
+    public void TakeDamage(sbyte damageValue) => CurrentHP -= damageValue;
+
 }
