@@ -2,6 +2,7 @@
 
 public class TrueProgrammer(string name) : Character
 {
-    public override sbyte HP => 100;
+    public override sbyte MaxHP => 25;
+    public override sbyte CurrentHP => MaxHP;
     public override string Name => name;
 }

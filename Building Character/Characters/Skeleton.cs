@@ -2,6 +2,7 @@
 
 public class Skeleton : Character
 {
-    public override sbyte HP => 100;
+    public override sbyte MaxHP => 5;
+    public override sbyte CurrentHP => MaxHP;
     public override string Name => "SKELETON";
 }

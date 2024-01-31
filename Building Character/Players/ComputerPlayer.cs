@@ -9,16 +9,6 @@ public class ComputerPlayer : IPlayer
     {
         Thread.Sleep(500);
 
-        if (character is Skeleton)
-        {
-            return new BoneCrunch();
-        }
-
-        if (character is TrueProgrammer)
-        {
-            return new Punch();
-        }
-
-        return new DoNothingAction();
+        return new BoneCrunch();
     }
 }
