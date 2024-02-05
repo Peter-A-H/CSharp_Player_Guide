@@ -7,5 +7,4 @@ public abstract class Character(sbyte hp)
     public abstract string Name { get; }
 
     public void TakeDamage(sbyte damageValue) => CurrentHP -= damageValue;
-
 }

@@ -1,1 +1,2 @@
-﻿global using TheUncodedOne.Characters;
+﻿global using Color;
+global using TheUncodedOne.Characters;

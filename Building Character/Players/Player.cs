@@ -7,7 +7,7 @@ public class Player : IPlayer
 {
     public IAttack ChooseAction(Battle battle, Character character)
     {
-        Thread.Sleep(500);
+        Thread.Sleep(2000);
 
         if (character is Skeleton) return new BoneCrunch();
         if (character is TrueProgrammer) return new Punch();

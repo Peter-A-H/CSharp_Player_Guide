@@ -13,6 +13,7 @@ public class Punch : IAttack
 
         Console.WriteLine($"{character.Name} did {AttackName} on {target.Name}");
         Console.WriteLine($"{AttackName} dealt {AttackDamage} damage to {target.Name}");
+        target.TakeDamage(AttackDamage);
         Console.WriteLine($"{target.Name} is now at {target.CurrentHP}");
     }
 }
