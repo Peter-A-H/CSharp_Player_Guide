@@ -1,6 +1,6 @@
 ﻿using TheUncodedOne.Parties;
 
-namespace TheUncodedOne.Attack;
+namespace TheUncodedOne.AttackAction;
 
 public class DoNothingAction : IAttack
 {

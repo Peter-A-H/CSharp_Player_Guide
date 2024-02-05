@@ -1,4 +1,4 @@
-﻿using TheUncodedOne.Attack;
+﻿using TheUncodedOne.AttackAction;
 using TheUncodedOne.Parties;
 
 namespace TheUncodedOne.Players;
