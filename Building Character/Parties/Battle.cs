@@ -15,7 +15,7 @@ public class Battle(Party heroes, Party monsters)
             {
                 if (party == null) break;
 
-                foreach (Character character in party.Characters)
+                foreach (Character character in party.Characters.ToList())
                 {
                     Console.WriteLine($"{character.Name} is taking a turn...");
                     party.Player.ChooseAction(this, character).RunAction(this, character);

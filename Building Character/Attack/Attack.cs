@@ -12,7 +12,7 @@ public class Attack(string name, sbyte damage, Character target) : IAttack
     {
         Console.WriteLine($"{character.Name} did {AttackName} on {Target.Name}");
         Console.WriteLine($"{AttackName} dealt {AttackDamage} damage to {Target.Name}");
-        Target.TakeDamage(AttackDamage);
+        Target.TakeDamage(AttackDamage, battle);
         Console.WriteLine($"{Target.Name} is now at {Target.CurrentHP}/{Target.MaxHP}");
     }
 }
