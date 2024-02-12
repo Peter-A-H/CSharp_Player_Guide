@@ -10,10 +10,14 @@ public class UncodedOneGame
         Party heroes = new(new Player());
         heroes.Characters.Add(new TrueProgrammer(userName));
         Party monsters = new(new ComputerPlayer());
-        monsters.Characters.Add(new Skeleton("Skeleton1".ToUpper()));
-        monsters.Characters.Add(new Skeleton("Skeleton2".ToUpper()));
-        Battle battle = new(heroes, monsters);
+        monsters.Characters.Add(new Skeleton("Skeleton".ToUpper()));
+        Party monstersBackup = new(new ComputerPlayer());
+        monstersBackup.Characters.Add(new Skeleton("Fire Skeleton".ToUpper()));
+        monstersBackup.Characters.Add(new Skeleton("Ice Skeleton".ToUpper()));
+        Battle firstBattle = new(heroes, monsters);
+        Battle secondBattle = new(heroes, monstersBackup);
 
-        battle.Start();
+        firstBattle.Start();
+        secondBattle.Start();
     }
 }
