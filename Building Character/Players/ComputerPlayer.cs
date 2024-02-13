@@ -9,6 +9,18 @@ public class ComputerPlayer : IPlayer
     {
         Thread.Sleep(2000);
 
-        return new Attack("BONE CRUNCH", (sbyte)new Random().Next(2), battle.Heroes.Characters[0]);
+        if (character is Skeleton)
+        {
+            return new Attack("BONE CRUNCH", (sbyte)new Random().Next(2), battle.Heroes.Characters[0]);
+        }
+        else if (character is UncodedOne)
+        {
+            return new Attack("UNRAVELLING", (sbyte)new Random().Next(15), battle.Heroes.Characters[0]);
+        }
+        else
+        {
+
+            return new DoNothingAction();
+        }
     }
 }
